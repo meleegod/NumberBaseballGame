@@ -17,11 +17,13 @@ public:
 
 private:
     void generate3DgitRandomNumber();
+    bool isInputNumberWrong();
+    bool isNumber(char ch);
 
 private:
     string answerNumberString;
     string userNumberString;
     int numOfStrike;
-    int numOfball;
+    int numOfBall;
     bool m_isGameDone;
 };
