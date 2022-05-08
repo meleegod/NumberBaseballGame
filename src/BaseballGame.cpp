@@ -1,5 +1,7 @@
 #include "../include/BaseballGame.h"
 #include <iostream>
+#include <random>
+#include <time.h>
 
 using namespace std;  
 
@@ -17,7 +19,10 @@ bool BaseballGame::isGameDone()
 }
 void BaseballGame::initialize()
 {
-    numOfStrike;
+    answerNumberString = "";
+    userNumberString= "";
+    numOfStrike = 0;
+    srand(time(NULL));
     generate3DgitRandomNumber();
 }
 int BaseballGame::getNumOfStrike()
@@ -59,14 +64,29 @@ bool BaseballGame::isInputNumberWrong()
 void BaseballGame::input()
 {
     //사용자가 숫자를 잘못 입력하게된 경우 
+     userNumberString = "";
     while(isInputNumberWrong()) 
     {
-    cout << "3자리 숫자를 입력해주세요" << endl;
-    cin >> userNumberString;
+        cout << "Enter 3 digit number" << endl;
+        cin >> userNumberString;
     }
 }
 void BaseballGame::judge()
 {
+    //random number
+    //123
+    //user number
+    //142
+    for(int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if(userNumberString[i] == answerNumberString[j]){
+                if(i == j) numOfStrike++;
+                else numOfBall++;
+            }
+        }
+    }
 }
 void BaseballGame::output()
 {
@@ -77,13 +97,33 @@ void BaseballGame::output()
     cout << numOfBall;
     cout << ")" << endl;
 
-    if(numOfStrike == 3)
-    {
-        cout << "숫자를 맞추셨습니다." << endl;
-    }
 }
 
 void BaseballGame::generate3DgitRandomNumber()
 {
+    bool hasNumber[10] = {
+        false,
+    };
+    int number;
 
+    number = rand() % 10;
+    answerNumberString += to_string(number);
+    hasNumber [number] = true;
+
+    number = rand() % 10;
+    while(hasNumber [number]) 
+    {
+        number = rand() % 10;
+    }
+    answerNumberString += to_string(number);
+    hasNumber [number] = true;
+
+
+    number = rand() % 10;
+    while(hasNumber [number]) {
+        number = rand() % 10;
+    }
+    answerNumberString += to_string(number);
+
+    cout << answerNumberString << endl;
 }
