@@ -73,17 +73,17 @@ void BaseballGame::input()
 }
 void BaseballGame::judge()
 {
-    //random number
-    //123
-    //user number
-    //142
+    numOfStrike = numOfBall = 0;
     for(int i = 0; i < 3; i++)
     {
         for (int j = 0; j < 3; j++)
         {
-            if(userNumberString[i] == answerNumberString[j]){
-                if(i == j) numOfStrike++;
-                else numOfBall++;
+            if(userNumberString[i] == answerNumberString[j])
+            {
+                if(i == j) 
+                    numOfStrike++;
+                else   
+                    numOfBall++;
             }
         }
     }
@@ -97,6 +97,18 @@ void BaseballGame::output()
     cout << numOfBall;
     cout << ")" << endl;
 
+    char yesorno;
+    if (numOfStrike == 3)
+    {
+        cout << "Correct Number!" << endl;
+        cout << "Do you want to play again(Y/N)" << endl;
+        cin >> yesorno;
+
+        if(yesorno == 'Y' || yesorno == 'y')
+            m_isGameDone = false;
+        else if(yesorno == 'N' || yesorno == 'n')
+            m_isGameDone = true;
+    }
 }
 
 void BaseballGame::generate3DgitRandomNumber()
